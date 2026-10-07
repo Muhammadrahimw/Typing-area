@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="2026-10-07">
+<meta name="version" content="2026-10-07.2">
 <title>Typing maydoncha</title>
 <style>
 :root{
@@ -218,7 +218,8 @@ select,.inp{height:32px;border:1px solid var(--line2);border-radius:6px;backgrou
 .key.mod{font-family:inherit;font-size:calc(var(--u)*.24);color:var(--text2)}
 .key.m2{background:var(--m2-bg);border-color:var(--m2-line);color:var(--m2-text);box-shadow:none}
 .key.bump::after{content:"";position:absolute;bottom:calc(var(--u)*.14);width:calc(var(--u)*.25);height:2px;border-radius:2px;background:currentColor;opacity:.55}
-.key.target{background:var(--accent)!important;border-color:var(--accent-d)!important;color:var(--on-accent)!important;transform:translateY(-2px);box-shadow:0 0 0 3px var(--ring2)}
+/* bosiladigan tugma qo'llar qatlamidan yuqorida — harfi barmoq ostida qolmasin */
+.key.target{z-index:2;background:var(--accent)!important;border-color:var(--accent-d)!important;color:var(--on-accent)!important;transform:translateY(-2px);box-shadow:0 0 0 3px var(--ring2)}
 .key.target .s{color:inherit;opacity:.75}
 .key.down{transform:translateY(2px);box-shadow:none;filter:brightness(.9)}
 .key.bad{background:var(--err)!important;border-color:var(--err)!important;color:#fff!important}
@@ -229,7 +230,7 @@ select,.inp{height:32px;border:1px solid var(--line2);border-radius:6px;backgrou
 .z-r2{background:var(--z2r);border-color:var(--z2rb)}
 .z-th,.z-lth,.z-rth{background:var(--zth);border-color:var(--zthb)}
 .kbstage{position:relative;width:max-content;max-width:100%;margin:0 auto}
-.hands-svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.hands-svg{position:absolute;left:0;top:0;z-index:1;overflow:visible;pointer-events:none}
 .hands-svg .hp{fill:var(--hand);stroke:var(--hand-line);stroke-width:1.5}
 .hands-svg .hf.on{fill:var(--hand-on);stroke:var(--accent);stroke-width:2.2}
 .hands-svg .tip{fill:var(--hand-tip)}
