@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="2026-10-07.4">
+<meta name="version" content="2026-10-07.5">
 <title>Typing maydoncha</title>
 <style>
 :root{
@@ -88,6 +88,8 @@ html,body{margin:0;min-height:100%}
 body{background:var(--bg);color:var(--text);font:14px/1.45 "Segoe UI",Inter,system-ui,-apple-system,Roboto,Arial,sans-serif}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bg-layers)}
 button,input,select{font:inherit;color:inherit}
+/* eski Chrome'da tugmaga standart "align-items:flex-start" berilgan — flex tugmalar (dars kartasi, dizayn namunasi) ichi siqilib qolardi */
+button{align-items:stretch}
 h1,h2,h3{margin:0}
 .muted{color:var(--muted)} .small{font-size:12px}
 .btn{height:32px;padding:0 12px;border:1px solid var(--line2);background:var(--panel);border-radius:6px;cursor:pointer;white-space:nowrap}
@@ -190,7 +192,8 @@ select,.inp{height:32px;border:1px solid var(--line2);border-radius:6px;backgrou
 .thm{border:1px solid var(--line2);border-radius:8px;background:var(--panel);padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:6px;text-align:left}
 .thm:hover{border-color:var(--accent)}
 .thm.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
-.thm:disabled{cursor:default;opacity:.55}
+.thm:disabled{cursor:default}
+.thm:disabled .nm,.thm:disabled .rq{opacity:.55}
 .thm:disabled:hover{border-color:var(--line2)}
 .thm .pv{height:62px;border-radius:5px;background:var(--sw-pat,var(--sw-bg));border:1px solid rgba(127,127,127,.25);padding:7px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
 .thm .pv i{display:block;height:4px;border-radius:2px;background:var(--sw-acc)}
