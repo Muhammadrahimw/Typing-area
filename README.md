@@ -11,7 +11,7 @@ Maktab kompyuterlari uchun oflayn klaviatura trenajyori. Bitta fayl: `Typing-may
 - **So'z yomg'iri** (o'yin) — tepadan tushayotgan so'zlarni yerga yetmasdan yozish. 3 ta jon, har 10 so'zda bosqich va tezlik oshadi, ketma-ket xatosiz so'zlar uchun ochko ×2…×4. So'zlar rejimi bilan bir vaqtda ochiladi.
 - **Nishonlar** — 20 ta yutuq (darslar, yulduzlar, tezlik, so'zlar rejimi, yomg'ir, mashq vaqti). Bir marta olingan nishon qaytib olinmaydi.
 - **Takroriy akkauntdan himoya** — ism boshqacha yozilsa (so'zlar tartibi, 1–2 harf farqi, apostrof turi) «Siz shu o'quvchi emasmisiz?» deb so'raydi. O'qituvchi ikki akkauntni bittaga birlashtira oladi.
-- O'qituvchi paneli (standart PIN: `1234`): sinflar, natijalar jadvali, CSV, zaxira nusxa (JSON) va boshqa kompyuterlardagi natijalarni birlashtirish.
+- O'qituvchi paneli (PIN kod o'qituvchida; kodda faqat uning SHA-256 xeshi saqlanadi): sinflar, natijalar jadvali, CSV, zaxira nusxa (JSON), boshqa kompyuterlardagi natijalarni birlashtirish va **dizaynlarni ko'rish** — namuna o'quvchi bilan istalgan dizaynni sinash (natijalar saqlanmaydi).
 
 ## Kompyuterlarda yangilash
 
