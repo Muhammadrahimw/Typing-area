@@ -126,13 +126,21 @@ select,.inp{height:32px;border:1px solid var(--line2);border-radius:6px;backgrou
 @media (max-width:1000px){.modes{grid-template-columns:1fr}}
 .tile.click{cursor:pointer}
 .tile.click:hover{border-color:var(--accent)}
-.wcard{display:flex;align-items:center;gap:16px;padding:12px 14px;flex-wrap:wrap}
-.wcard .wt{flex:1;min-width:220px;display:flex;flex-direction:column;gap:2px}
-.wcard .wt b{font-size:15px}
-.wrecs{display:flex;gap:18px;flex-wrap:wrap}
-.wrecs .v{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
-.wrecs .v small{font-size:11px;font-weight:500;color:var(--muted)}
-.wcard.locked{opacity:.6}
+.mcard{display:flex;flex-direction:column}
+.mc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px}
+.mc-top h3{font-size:15px;font-weight:600}
+.mc-top p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.mc-top .btn{flex:none;min-width:112px}
+.mc-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:auto}
+.mc-stats>div{padding:10px 16px;min-width:0}
+.mc-stats>div+div{border-left:1px solid var(--line)}
+.mc-stats .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-stats .v{font-size:18px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums}
+.mc-stats .v small{font-size:12px;font-weight:500;color:var(--muted)}
+.mc-stats .v.none{color:var(--faint);font-weight:400}
+.mc-lock{border-top:1px solid var(--line);margin-top:auto;padding:12px 16px;font-size:13px;color:var(--muted)}
+.mcard.locked h3{color:var(--muted)}
+.pill{flex:none;font-size:12px;padding:3px 10px;border:1px solid var(--line2);border-radius:999px;color:var(--muted)}
 .wopts{display:none;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 14px;border-bottom:1px solid var(--line)}
 .wopts.on{display:flex}
 .wopts .chips{gap:4px}
@@ -980,22 +988,25 @@ function openDetail(s,teacher,toBadges,actions){
   openModal(detailHtml(s,teacher),{wide:true,actions:actions});
   if(toBadges){var e=$("#bdgSec");if(e)e.scrollIntoView({block:"start"});}
 }
-function rec(label,v,unit){return '<div><div class="lbl">'+label+'</div><div class="v">'+(v?v+"<small> "+unit+"</small>":"—")+"</div></div>";}
+function stat(label,v,unit){return '<div><div class="lbl">'+label+'</div><div class="v'+(v?"":" none")+'">'+(v?v+(unit?"<small> "+unit+"</small>":""):"—")+"</div></div>";}
+// Ikkala karta bir xil tuzilishda: sarlavha + tugma, pastda 3 ta ko'rsatkich.
+function modeCard(title,desc,right,bottom,locked){
+  return '<div class="panel mcard'+(locked?" locked":"")+'"><div class="mc-top"><div><h3>'+title+"</h3><p>"+desc+"</p></div>"+right+"</div>"+bottom+"</div>";
+}
 function renderWordsCard(s){
-  var el=$("#hmWords");
+  var el=$("#hmWords"),W="So'zlar rejimi",Rn="So'z yomg'iri";
+  var wd="Belgilangan vaqt ichida faqat so'zlar yozasiz.",rd="Tushayotgan so'zlarni yerga yetmasdan yozing.";
   if(!wordsOpen(s)){
-    var need=esc(needText(+DB.settings.wordsAfter));
-    el.innerHTML='<div class="panel wcard locked"><div class="wt"><b>🔒 So\'zlar rejimi</b><span class="muted">Vaqt bo\'yicha faqat so\'zlar yozish. '+need+" ochiladi.</span></div></div>"+
-      '<div class="panel wcard locked"><div class="wt"><b>🔒 So\'z yomg\'iri</b><span class="muted">O\'yin: tushayotgan so\'zlarni yerga yetmasdan yozing. '+need+" ochiladi.</span></div></div>";
+    var lock='<div class="mc-lock">'+esc(needText(+DB.settings.wordsAfter))+" ochiladi</div>",pill='<span class="pill">🔒 Yopiq</span>';
+    el.innerHTML=modeCard(W,wd,pill,lock,true)+modeCard(Rn,rd,pill,lock,true);
     return;
   }
   var b=(s.words&&s.words.best)||{},rn=s.rain||{};
-  el.innerHTML='<div class="panel wcard"><div class="wt"><b>So\'zlar rejimi</b><span class="muted">30 soniya, 1 yoki 2 daqiqa davomida faqat so\'zlar yozasiz.</span></div>'+
-    '<div class="wrecs">'+WDURS.map(function(d){var x=b[d];return rec("Rekord · "+durName(d),x&&x.wpm,"WPM");}).join("")+"</div>"+
-    '<button class="btn primary big" data-w="words">Boshlash &rarr;</button></div>'+
-    '<div class="panel wcard"><div class="wt"><b>So\'z yomg\'iri</b><span class="muted">O\'yin: tushayotgan so\'zlarni yerga yetmasdan yozing. Har 10 so\'zda tezlik oshadi.</span></div>'+
-    '<div class="wrecs">'+rec("Rekord",rn.best,"ochko")+rec("Eng yuqori bosqich",rn.bestLevel,"")+"</div>"+
-    '<button class="btn primary big" data-w="rain">O\'ynash &rarr;</button></div>';
+  el.innerHTML=
+    modeCard(W,wd,'<button class="btn primary" data-w="words">Boshlash</button>',
+      '<div class="mc-stats">'+WDURS.map(function(d){var x=b[d];return stat("Rekord · "+(d<60?d+" s":d/60+" daq"),x&&x.wpm,"WPM");}).join("")+"</div>")+
+    modeCard(Rn,rd,'<button class="btn primary" data-w="rain">O\'ynash</button>',
+      '<div class="mc-stats">'+stat("Rekord",rn.best,"ochko")+stat("Eng yuqori bosqich",rn.bestLevel)+stat("O'yinlar",rn.games)+"</div>");
 }
 $("#hmWords").addEventListener("click",function(e){var b=e.target.closest("[data-w]");if(!b)return;if(b.dataset.w==="rain")startRain();else startWords();});
 
