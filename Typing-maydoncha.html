@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="2026-10-07">
 <title>Typing maydoncha</title>
 <style>
 :root{
@@ -304,6 +305,7 @@ kbd{font-family:var(--mono);border:1px solid var(--line2);border-bottom-width:2p
         <datalist id="lgNames"></datalist>
         <button class="btn primary big" id="lgGo">Boshlash</button>
         <div class="lg-list"><div class="lbl">Shu sinf o'quvchilari</div><div id="lgChips" class="chips"></div></div>
+        <div class="lbl ver" style="text-align:right;color:var(--faint)"></div>
       </div>
     </div>
   </div>
@@ -436,6 +438,7 @@ kbd{font-family:var(--mono);border:1px solid var(--line2);border-bottom-width:2p
           <div class="row wrap"><button class="btn primary" id="bkExport">Faylga saqlash</button><button class="btn" id="bkImport">Fayldan yuklash</button></div>
           <input type="file" id="bkFile" accept=".json,application/json" hidden>
           <button class="btn danger" id="bkWipe">Barcha natijalarni o'chirish</button>
+          <div class="lbl ver" style="color:var(--faint)"></div>
         </div>
       </div>
     </div>
@@ -1576,6 +1579,8 @@ $("#tcRank").addEventListener("click",openRanking);
 if(FEATURES.leaderboard){$("#hmRank").hidden=false;$("#tcRank").hidden=false;}
 
 /* ================= ishga tushirish ================= */
+// Versiya <head> dagi meta tegda — har o'zgarishda sanani yangilang (ornatish.ps1 ham shuni ko'rsatadi).
+Array.prototype.forEach.call(document.querySelectorAll(".ver"),function(e){e.textContent="Versiya: "+$('meta[name="version"]').content;});
 sortClasses();buildKb();applyFs();applyKbHidden();
 var u=ss("tm_user");
 if(u&&DB.students[u]){USER=u;renderHome();}else renderLogin();

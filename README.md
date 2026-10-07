@@ -28,3 +28,4 @@ Eski natijalar saqlanib qolishi uchun:
 - `KEY` (`typing_maydoncha_v1`) ni o'zgartirmang.
 - Darslar tartibini o'zgartirmang va o'rtaga dars qo'shmang — natijalar dars raqami bo'yicha saqlanadi. Yangi dars faqat **oxiriga** qo'shiladi.
 - Yangi ma'lumotlar o'quvchi obyektiga yangi maydon sifatida qo'shiladi; eski maydonlar o'chirilmaydi yoki nomi o'zgartirilmaydi.
+- Har o'zgarishda `<meta name="version" content="YYYY-MM-DD">` sanasini yangilang — u kirish oynasi pastida va o'rnatuvchi oynasida ko'rinadi, shunda kompyuter yangilangani bir qarashda bilinadi.
